@@ -1,0 +1,165 @@
+// A class library for making a consistent spacing in a html page.
+
+
+
+@use "~@nodestrap/sass-class-template/src/index" as *;
+@use "sass:map"                                  as map;
+@use "sass:list"                                 as list;
+
+
+
+// $alias              : "%breakpoint"                         !default;
+// $class              : ".breakpoint"                         !default;
+$var-root           : ":root"                               !default;
+$var-prefix         : "bp"                                  !default;
+$var-prefix-base    : ""                                    !default;
+$cssvar: make-cssvar($var-prefix, $var-prefix-base);
+
+$breakpoints: (
+    xs  : 0px,
+    sm  : 576px,
+    md  : 768px,
+    lg  : 992px,
+    xl  : 1200px,
+    xxl : 1400px
+)                                                           !default;
+
+
+
+@include declare-cssvar($var-root) {
+}
+
+
+
+/// Gets the name of the next breakpoint.
+/// @param {string} $name the name of the current breakpoint.
+/// @return {string} the name of the next breakpoint, or null for the last breakpoint.
+@function next($name) {
+    $names: map.keys($breakpoints);
+    $index: list.index($names, $name);
+    @if ($index == null) { @error "breakpoint `#{$name}` not found in $breakpoints"; }
+
+    @if ($index < list.length($names)) {
+        @return list.nth($names, $index + 1);
+    }
+
+    @return null;
+}
+
+/// Gets the minimum breakpoint width.
+/// @param {string} $name the name of the breakpoint to get.
+/// @return {number} the minimum width of the given breakpoint's name, or null for the smallest breakpoint.
+@function min($name) {
+    @if (not map.has-key($breakpoints, $name)) { @error "breakpoint `#{$name}` not found in $breakpoints"; }
+
+    $value: map.get($breakpoints, $name);
+    @if (($value == 0) or ($value == 0px)) { @return null; }
+    @return $value;
+}
+
+/// Gets the maximum breakpoint width.
+/// @param {string} $name the name of the breakpoint to get.
+/// @return {number} the maximum width of the given breakpoint's name, or null for the smallest breakpoint.
+@function max($name) {
+    @if (not map.has-key($breakpoints, $name)) { @error "breakpoint `#{$name}` not found in $breakpoints"; }
+
+    $value: map.get($breakpoints, $name);
+    @if ($value >= 0.02px) { @return ($value - 0.02px); }
+    @return null;
+}
+
+/// Returns a blank string if smallest breakpoint, otherwise returns the name with a dash in front.
+/// @param {string} $name the name of the breakpoint to get.
+/// @return {string} -{breakpoint-name} or null for the smallest breakpoint.
+@function infix($name) {
+    @if (min($name) == null) { @return ""; }
+    @return "-#{$name}";
+}
+
+
+
+/// Media of at least the minimum breakpoint width. No query for the smallest breakpoint.
+/// Makes the @content apply to the given breakpoint and wider.
+/// @param {string} $name the name of the given breakpoint.
+@mixin media-up($name) {
+    $min: min($name);
+    @if ($min != null) {
+        @media (min-width: $min) {
+            @content;
+        }
+    }
+    @else {
+        @content;
+    }
+}
+
+/// Media of at most the maximum breakpoint width. No query for the largest breakpoint.
+/// Makes the @content apply to the given breakpoint and narrower.
+/// @param {string} $name the name of the given breakpoint.
+@mixin media-down($name) {
+    $max: max($name);
+    @if ($max != null) {
+        @media (max-width: $max) {
+            @content;
+        }
+    }
+    @else {
+        @content;
+    }
+}
+
+// Media that spans multiple breakpoint widths.
+// Makes the @content apply between the min and max breakpoints.
+/// @param {string} $lower the name of the minimum breakpoint.
+/// @param {string} $upper the name of the maximum breakpoint.
+@mixin media-between($lower, $upper) {
+    $min: min($lower);
+    $max: max($upper);
+  
+    @if (($min != null) and ($max != null)) {
+        @media (min-width: $min) and (max-width: $max) {
+            @content;
+        }
+    }
+    @else if ($max == null) {
+        @include media-up($lower) {
+            @content;
+        }
+    }
+    @else if ($min == null) {
+        @include media-down($upper) {
+            @content;
+        }
+    }
+}
+
+/// Media between the breakpoint's minimum and maximum widths.
+/// No minimum for the smallest breakpoint, and no maximum for the largest one.
+/// Makes the @content apply only to the given breakpoint, not viewports any wider or narrower.
+/// @param {string} $name the name of the given breakpoint.
+@mixin media-only($name) {
+    $min:  min($name);
+    $next: next($name);
+    $max:  if($next != null, max($next), null);
+  
+    @if (($min != null) and ($max != null)) {
+        @media (min-width: $min) and (max-width: $max) {
+            @content;
+        }
+    }
+    @else if ($max == null) {
+        @include media-up($name) {
+            @content;
+        }
+    }
+    @else if ($min == null) {
+        @include media-down($next) {
+            @content;
+        }
+    }
+}
+
+
+
+// utility class => no emit class
+// @include class($alias, $class, "");

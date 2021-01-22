@@ -1,0 +1,33 @@
+{
+  "name": "@nodestrap/breakpoints",
+  "version": "2.0.0",
+  "description": "A class utility for making a responsive web page in which the layout responsive changes across device or viewport sizes.",
+  "dependencies": {
+    "@nodestrap/sass-class-template": "^2.0.2"
+  },
+  "devDependencies": {
+    "tilde-sass": "^1.0.0"
+  },
+  "scripts": {
+    "test": "tilde-sass --file test/*.scss --outFile test/",
+    "compile": "tilde-sass --file src/*.scss --outFile dist/ --outputStyle compressed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodestrap/breakpoints.git"
+  },
+  "keywords": [
+    "html",
+    "layout",
+    "responsive",
+    "breakpoints",
+    "web",
+    "page"
+  ],
+  "author": "nodestrap, heymarco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nodestrap/breakpoints/issues"
+  },
+  "homepage": "https://github.com/nodestrap/breakpoints#readme"
+}
