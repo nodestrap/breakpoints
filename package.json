@@ -1,0 +1,35 @@
+{
+  "name": "@nodestrap/breakpoints",
+  "version": "4.0.0",
+  "description": "A responsive management system based on screen width.",
+  "main": "dist/breakpoints.js",
+  "types": "dist/breakpoints.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodestrap/breakpoints.git"
+  },
+  "keywords": [
+    "responsive",
+    "breakpoints",
+    "design",
+    "layouts",
+    "css",
+    "stylesheet",
+    "config",
+    "configuration",
+    "variables",
+    "property"
+  ],
+  "author": "heymarco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nodestrap/breakpoints/issues"
+  },
+  "homepage": "https://github.com/nodestrap/breakpoints#readme",
+  "dependencies": {
+    "@cssfn/cssfn": "^1.0.2"
+  }
+}
