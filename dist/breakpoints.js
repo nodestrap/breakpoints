@@ -12,7 +12,10 @@ export const breakpoints = {
 };
 export { breakpoints as default };
 const getSortedBreakpoints = () => Object.entries(breakpoints)
-    .filter(([breakpointName, breakpointValue]) => breakpointName /*not an empty string*/ && (typeof (breakpointValue) === 'number') /*is a number*/)
+    .filter((breakpoint) => !!breakpoint[0] // not an empty string
+    &&
+        (typeof (breakpoint[1]) === 'number') // is a number
+)
     .sort((a, b) => a[1] - b[1]); // sort from smallest value to biggest one
 /**
  * Gets the name of the next specified `breakpointName`.
@@ -61,7 +64,7 @@ export const max = (breakpointName) => {
     return value;
 };
 /**
- * Returns a blank string for the smallest breakpoint, otherwise returns the `breakpointName` with a dash in front.
+ * Returns `null` for the smallest breakpoint, otherwise returns the `breakpointName` with a dash in front.
  * @param breakpointName the breakpoint's name to get the infix.
  * @returns `-${breakpointName}` -or- `null` for the smallest breakpoint.
  * @throws The specified `breakpointName` is not found in breakpoints.

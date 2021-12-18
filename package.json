@@ -1,6 +1,6 @@
 {
   "name": "@nodestrap/breakpoints",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "A responsive management system based on screen width.",
   "type": "module",
   "main": "dist/breakpoints.js",
@@ -31,6 +31,6 @@
   },
   "homepage": "https://github.com/nodestrap/breakpoints#readme",
   "dependencies": {
-    "@cssfn/cssfn": "^1.0.3"
+    "@cssfn/cssfn": "^1.0.7"
   }
 }
