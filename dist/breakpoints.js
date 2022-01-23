@@ -79,7 +79,7 @@ export const infix = (breakpointName) => {
  * Applies given `styles` if the screen width is equal to / bigger than the specified `breakpointName`.
  * @param breakpointName the name of the minimum breakpoint.
  * @param styles the style(s) to apply if the screen width meets the minimum breakpoint width.
- * @returns A `RuleEntry` represents the media rule.
+ * @returns A `Rule` object represents the media rule.
  * @throws The specified `breakpointName` is not found in breakpoints.
  */
 export const isScreenWidthAtLeast = (breakpointName, styles) => {
@@ -90,7 +90,7 @@ export const isScreenWidthAtLeast = (breakpointName, styles) => {
  * Applies given `styles` if the screen width is smaller than the specified `breakpointName`.
  * @param breakpointName the name of the maximum breakpoint.
  * @param styles the style(s) to apply if the screen width meets the maximum breakpoint width.
- * @returns A `RuleEntry` represents the media rule.
+ * @returns A `Rule` object represents the media rule.
  * @throws The specified `breakpointName` is not found in breakpoints.
  */
 export const isScreenWidthSmallerThan = (breakpointName, styles) => {
@@ -102,7 +102,7 @@ export const isScreenWidthSmallerThan = (breakpointName, styles) => {
  * @param lowerBreakpointName the name of the minimum breakpoint.
  * @param upperBreakpointName the name of the maximum breakpoint.
  * @param styles the style(s) to apply if the screen width meets the minimum & maximum breakpoint width.
- * @returns A `RuleEntry` represents the media rule.
+ * @returns A `Rule` object represents the media rule.
  * @throws The specified `lowerBreakpointName` or `upperBreakpointName` are not found in breakpoints.
  */
 export const isScreenWidthBetween = (lowerBreakpointName, upperBreakpointName, styles) => {
@@ -125,7 +125,7 @@ export const isScreenWidthBetween = (lowerBreakpointName, upperBreakpointName, s
  * Applies given `styles` if the screen width is between the specified `breakpointName` and the next breakpoint.
  * @param breakpointName the name of the desired breakpoint.
  * @param styles the style(s) to apply if the screen width meets the minimum & maximum breakpoint width.
- * @returns A `RuleEntry` represents the media rule.
+ * @returns A `Rule` object represents the media rule.
  * @throws The specified `breakpointName` is not found in breakpoints.
  */
 export const isScreenWidth = (breakpointName, styles) => {
